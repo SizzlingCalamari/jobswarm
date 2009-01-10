@@ -1,0 +1,19 @@
+rd JobSwarm /s
+call clean.bat
+md JobSwarm
+cd JobSwarm
+copy ..\*.*
+md vc2003
+cd vc2003
+copy ..\..\vc2003\*.*
+cd ..
+md vc2005
+cd vc2005
+copy ..\..\vc2005\*.*
+cd ..
+md vc2008
+cd vc2008
+copy ..\..\vc2008\*.*
+cd ..
+call clean.bat
+cd ..
