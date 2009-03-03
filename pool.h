@@ -63,13 +63,15 @@
 #include <assert.h>
 #include <string.h>
 
+#ifdef MSVC_VER
 #pragma warning(push)
 #pragma warning(disable:4100)
+#endif
 
 class MPoolExtra
 {
 public:
-  MPoolExtra(size_t mlen,const char *poolType,const char *file,int lineno)
+  MPoolExtra(size_t mlen,const char *poolType,const char * /*file*/,int /*lineno*/)
   {
     mPoolType = poolType;
     mNext = 0;
@@ -385,6 +387,8 @@ public:
   int         mLineNo;
 };
 
+#ifdef MSVC_VER
 #pragma warning(pop)
+#endif
 
 #endif
