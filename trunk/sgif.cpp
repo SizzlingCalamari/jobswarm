@@ -2,8 +2,10 @@
 #include <stdio.h>
 #include <string.h>
 
+#ifdef MSVC_VER
 #pragma warning(disable:4996)
 #pragma warning(disable:4244)
+#endif
 
 static void initialize(void);
 
@@ -24,7 +26,7 @@ static short clear, codebits, colors, end, length, lastentry,	nbits, nbytes, ent
 static unsigned char buffer[16384],block[266],test[100];
 static unsigned short hashcode, next, str_index[5003];
 
-int	saveGIF(char *filename,int wid,int hit,const unsigned char *pal,const unsigned char *data)
+int	saveGIF(const char *filename,int wid,int hit,const unsigned char *pal,const unsigned char *data)
 {
 	short i, row, col, color,temp;
 	unsigned short hashentry;
@@ -167,7 +169,7 @@ void write_code(unsigned short code)
 	block[nbytes  ] |= ((code << nbits) & 0xFF);
 	block[nbytes+1] |= ((code >> (8 - nbits)) & 0xFF);
 	block[nbytes+2] |= (((code>>(8 - nbits)) >> 8) & 0xFF);
-	nbits += codebits;
+	nbits = nbits + codebits;
 
 	while (nbits >= 8)
 	{

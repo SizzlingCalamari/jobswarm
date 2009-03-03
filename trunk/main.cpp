@@ -337,15 +337,19 @@ private:
   unsigned char *mFractal;
 };
 
-void main(int /* argc */,const char ** /* argv */)
+int main(int /* argc */,const char ** /* argv */)
 {
 
-   _controlfp(_PC_64,_MCW_PC); // set the floating point control word for full 64 bit precision.
+   #ifdef _WIN32
+      _controlfp(_PC_64,_MCW_PC); // set the floating point control word for full 64 bit precision.
+   #endif
 
    #ifndef STRESS_TEST
 
+      unsigned int t;
+
       printf("Solving a fractal using one core and one thread in a straight line computation.\r\n");
-      unsigned int t = fractalLinear();
+      t = fractalLinear();
       printf("Took %d milliseconds to compute the fractal using one core without threading.\r\n", t );
       printf("\r\n");
 
@@ -362,7 +366,7 @@ void main(int /* argc */,const char ** /* argv */)
 
       const int    iterations=10;
       //
-      printf("settings:\n  NUM_THREADS %d\n  SWARM_SIZE %d\n  MAX_ITERATIONS %d\n  SPOOL_JOBS %d\n  SPOOL_JOB_SIZE %d\n" , 
+      printf("settings:\n  NUM_THREADS %d\n  SWARM_SIZE %d\n  MAX_ITERATIONS %d\n  SPOOL_JOBS %d\n  SPOOL_JOB_SIZE %d\n" ,
                NUM_THREADS, SWARM_SIZE, MAX_ITERATIONS, SPOOL_JOBS, SPOOL_JOB_SIZE );
       //
       unsigned int sum=0;
@@ -381,5 +385,6 @@ void main(int /* argc */,const char ** /* argv */)
 
    #endif
 
+   return 0;
 }
 
